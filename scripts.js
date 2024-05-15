@@ -1,4 +1,17 @@
-function showNeuralNetworkVideo() {
+document.addEventListener('DOMContentLoaded', function() {
+    var video = document.getElementById('background-video');
+  
+    // Ensure the video plays inline and is muted for mobile
+    video.setAttribute('playsinline', '');
+    video.muted = true;
+  
+    // Play the video manually if autoplay doesn't work
+    video.play().catch(function() {
+      // Autoplay failed, show a poster image or handle accordingly
+      video.poster = 'path/to/your/poster.jpg';
+    });
+  });
+  function showNeuralNetworkVideo() {
     document.getElementById('neuralNetworkPopup').style.display = 'block';
 }
 
