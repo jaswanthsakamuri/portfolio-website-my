@@ -69,5 +69,24 @@ window.onclick = function(event) {
   document.querySelector('a[href="tel:+14696097134"]').addEventListener('click', function() {
     alert('Dialing Jaswanth\'s number!');
   });
+  <script>
+    document.getElementById('google-form-iframe').onload = function() {
+        // When the iframe loads, check if the submission was successful
+        const iframeDoc = document.getElementById('google-form-iframe').contentDocument || document.getElementById('google-form-iframe').contentWindow.document;
+        const thankYouMessage = document.getElementById('thank-you-message');
+        
+        iframeDoc.addEventListener('submit', function() {
+            // Hide the form and show the thank you message
+            document.querySelector('.contact-form').style.display = 'none';
+            thankYouMessage.style.display = 'block';
+            
+            // Optional: Redirect to home after a delay
+            setTimeout(function() {
+                window.location.href = "#home"; // Redirects to the home section
+            }, 3000); // Adjust the delay as needed
+        });
+    };
+</script>
+
 </script>
 

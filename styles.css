@@ -732,6 +732,13 @@ footer .social-media img {
     background-color: #45a049;
 }
 
+#thank-you-message {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    color: #007BFF; /* Change this color to suit your design */
+}
 
 .popup {
     display: none;
