@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.post('/submit-form', (req, res) => {
     const { name, email, message } = req.body;
 
+    console.log('Received submission:', { name, email, message });
+
     // Save the form data to a file
     const formData = { name, email, message, date: new Date() };
     const dataPath = path.join(__dirname, 'submissions.json');
@@ -19,6 +21,7 @@ app.post('/submit-form', (req, res) => {
     // Read existing submissions
     fs.readFile(dataPath, 'utf8', (err, data) => {
         if (err && err.code !== 'ENOENT') {
+            console.error('Error reading file:', err);
             return res.status(500).send('An error occurred while saving your submission.');
         }
 
@@ -28,9 +31,11 @@ app.post('/submit-form', (req, res) => {
         // Write updated submissions back to file
         fs.writeFile(dataPath, JSON.stringify(submissions, null, 2), (err) => {
             if (err) {
+                console.error('Error writing file:', err);
                 return res.status(500).send('An error occurred while saving your submission.');
             }
 
+            console.log('Submission saved:', formData);
             res.status(200).send('Thank you for your submission!');
         });
     });
