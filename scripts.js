@@ -69,24 +69,45 @@ window.onclick = function(event) {
   document.querySelector('a[href="tel:+14696097134"]').addEventListener('click', function() {
     alert('Dialing Jaswanth\'s number!');
   });
-  <script>
-    document.getElementById('google-form-iframe').onload = function() {
-        // When the iframe loads, check if the submission was successful
-        const iframeDoc = document.getElementById('google-form-iframe').contentDocument || document.getElementById('google-form-iframe').contentWindow.document;
-        const thankYouMessage = document.getElementById('thank-you-message');
-        
-        iframeDoc.addEventListener('submit', function() {
-            // Hide the form and show the thank you message
-            document.querySelector('.contact-form').style.display = 'none';
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const thankYouMessage = document.getElementById('thank-you-message');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Submit form data using Fetch API
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log(result);
+            // Show thank you message
+            form.style.display = 'none';
             thankYouMessage.style.display = 'block';
-            
-            // Optional: Redirect to home after a delay
+
+            // Redirect to home after a delay
             setTimeout(function() {
                 window.location.href = "#home"; // Redirects to the home section
             }, 3000); // Adjust the delay as needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-    };
-</script>
+    });
+});
+
 
 </script>
 
